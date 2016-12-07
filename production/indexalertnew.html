@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<!-- Meta, title, CSS, favicons, etc. -->
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<title>Dashboard |Alerts Dashboard </title>
+
+	<!-- Bootstrap -->
+	<link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+	<!-- Font Awesome -->
+	<link href="../vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+	<!-- NProgress -->
+	<link href="../vendors/nprogress/nprogress.css" rel="stylesheet">
+	<!-- iCheck -->
+	<link href="../vendors/iCheck/skins/flat/green.css" rel="stylesheet">
+	<!-- bootstrap-progressbar -->
+	<link href="../vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet">
+	<!-- JQVMap -->
+	<link href="../vendors/jqvmap/dist/jqvmap.min.css" rel="stylesheet" />
+	<!-- bootstrap-daterangepicker -->
+	<link href="../vendors/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
+
+	<link rel="icon" href="images/Igniteflame.png">
+
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/2.2.0/ui-bootstrap.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/2.2.0/ui-bootstrap-tpls.min.js"></script>
+	<script src="libs/d3.js"></script>
+	<script src="libs/nv.d3.js"></script>
+	<script src="libs/angularjs-nvd3-directives.js"></script>
+	<script src="app.js"></script>
+	<script src="alerts/alertsController.js"></script>
+	<script src="alerts/alertsFactory.js"></script>
+
+	<!-- Custom Theme Style -->
+	<link href="../build/css/custom.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="css/nv.d3.css" />
+	<link rel="stylesheet" href="css/myoverridecss.css" </head>
+
+	<body class="nav-md" ng-app="alerts" ng-controller="alertsController">
+		<div class="container body">
+			<!-- main container-->
+			<div class="main_container">
+				<div class="col-md-3 left_col">
+					<div class="left_col scroll-view">
+						<div class="navbar nav_title" style="border: 0;">
+							<a href="index.html" class="site_title"><i class="fa fa-paw"></i> <span>Dashboard!</span></a>
+						</div>
+
+						<div class="clearfix"></div>
+
+						<!-- menu profile quick info -->
+						<div class="profile">
+							<div class="profile_pic">
+								<img src="images/img.png" alt="..." class="img-circle profile_img">
+							</div>
+							<div class="profile_info">
+								<span>Welcome,</span>
+								<h2>Kevin Parker</h2>
+							</div>
+						</div>
+						<!-- /menu profile quick info -->
+
+						<br />
+
+						<!-- sidebar menu -->
+						<div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+							<div class="menu_section">
+								<h3>DSSM</h3>
+								<ul class="nav side-menu">
+									<li><a><i class="fa fa-home"></i> Home <span class="fa fa-chevron-down"></span></a>
+										<ul class="nav child_menu">
+											<li><a href="index.html">Dashboard</a></li>
+											<li><a href="indexalertnew.html">Alert Dashboard</a></li>
+										</ul>
+									</li>
+									<li><a><i class="fa fa-table"></i> Tables <span class="fa fa-chevron-down"></span></a>
+										<ul class="nav child_menu">
+											<li><a href="tables_dynamic.html">Order</a></li>
+										</ul>
+									</li>
+
+								</ul>
+							</div>
+
+						</div>
+						<!-- /sidebar menu -->
+
+						<!-- /menu footer buttons -->
+						<div class="sidebar-footer hidden-small">
+							<a data-toggle="tooltip" data-placement="top" title="Settings">
+								<span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+							</a>
+							<a data-toggle="tooltip" data-placement="top" title="FullScreen">
+								<span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
+							</a>
+							<a data-toggle="tooltip" data-placement="top" title="Lock">
+								<span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
+							</a>
+							<a data-toggle="tooltip" data-placement="top" title="Logout">
+								<span class="glyphicon glyphicon-off" aria-hidden="true"></span>
+							</a>
+						</div>
+						<!-- /menu footer buttons -->
+					</div>
+				</div>
+
+				<!-- top navigation -->
+				<div class="top_nav">
+					<div class="nav_menu">
+						<nav>
+							<div class="nav toggle">
+								<a id="menu_toggle"><i class="fa fa-bars"></i></a>
+							</div>
+
+							<ul class="nav navbar-nav navbar-right">
+								<li class="">
+									<a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+										<img src="images/img.png" alt="">Kevin Parker
+										<span class=" fa fa-angle-down"></span>
+									</a>
+									<ul class="dropdown-menu dropdown-usermenu pull-right">
+										<li><a href="javascript:;"> Profile</a></li>
+										<li>
+											<a href="javascript:;">
+												<span class="badge bg-red pull-right">45%</span>
+												<span>Settings</span>
+											</a>
+										</li>
+										<li><a href="javascript:;">Help</a></li>
+										<li><a href="login.html"><i class="fa fa-sign-out pull-right"></i> Log Out</a></li>
+									</ul>
+								</li>
+
+								<li role="presentation" class="dropdown">
+									<a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false">
+										<i class="fa fa-envelope-o"></i>
+										<span class="badge bg-green">2</span>
+									</a>
+									<ul id="menu1" class="dropdown-menu list-unstyled msg_list" role="menu">
+										<li>
+											<a>
+												<span class="image"><img src="images/img.png" alt="Profile Image" /></span>
+												<span>
+                          <span>John Smith</span>
+												<span class="time">3 mins ago</span>
+												</span>
+												<span class="message">
+                          Orders are very high today
+                        </span>
+											</a>
+										</li>
+										<li>
+											<a>
+												<span class="image"><img src="images/img.png" alt="Profile Image" /></span>
+												<span>
+                          <span>Kiran</span>
+												<span class="time">6 mins ago</span>
+												</span>
+												<span class="message">
+                          Review and complete the alert 19952
+                        </span>
+											</a>
+										</li>
+										<li>
+											<div class="text-center">
+												<a>
+													<strong>See All Notifications</strong>
+													<i class="fa fa-angle-right"></i>
+												</a>
+											</div>
+										</li>
+									</ul>
+								</li>
+							</ul>
+						</nav>
+					</div>
+				</div>
+				<!-- /top navigation -->
+
+
+				<!-- page content -->
+				<div class="right_col overflow_hidden" role="main">
+					<!-- top tiles -->
+					<div class="row tile_count">
+						<div class="col-md-2 col-sm-4 col-xs-4 tile_stats_count">
+							<span class="count_top"><i class="fa fa-star-o"></i> Total Alerts</span>
+							<div class="count">591</div>
+							<span class="count_bottom"><i class="green">4% </i> From last Week</span>
+						</div>
+						<div class="col-md-2 col-sm-4 col-xs-4 tile_stats_count">
+							<span class="count_top"><i class="fa fa-star-o"></i> OP Alerts</span>
+							<div class="count">19</div>
+							<span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>3% </i> From last Week</span>
+						</div>
+						<div class="col-md-2 col-sm-4 col-xs-4 tile_stats_count">
+							<span class="count_top"><i class="fa fa-star-o"></i> QA Alerts</span>
+							<div class="count green">375</div>
+							<span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>14% </i> From last Week</span>
+						</div>
+						<div class="col-md-2 col-sm-4 col-xs-4 tile_stats_count">
+							<span class="count_top"><i class="fa fa-star-o"></i> Receiving Alerts</span>
+							<div class="count">197</div>
+							<span class="count_bottom"><i class="red"><i class="fa fa-sort-desc"></i>12% </i> From last Week</span>
+						</div>
+
+						<div class="col-md-2 col-sm-4 col-xs-4 tile_stats_count">
+							<span class="count_top"><i class="fa fa-star-o"></i> Closed Alerts</span>
+							<div class="count">187</div>
+							<span class="count_bottom"><i class="blue"><i class="fa fa-sort-desc"></i>32% </i> Closed </span>
+						</div>
+
+						<div class="col-md-2 col-sm-4 col-xs-4 tile_stats_count">
+							<span class="count_top"><i class="fa fa-star-o"></i> Open Alerts</span>
+							<div class="count">404</div>
+							<span class="count_bottom"><i class="red"><i class="fa fa-sort-asc"></i>68% </i> Open</span>
+						</div>
+
+					</div>
+					<!-- /top tiles -->
+
+
+					<!-- Complete Row for Alert Table data Start-->
+					<div class="col-xs-12 col-sm-12 col-md-12 ">
+						<div class="x_panel tile fixed_height_300 overflow_hidden">
+							<div class="x_title">
+								<h2>Alert-Table Data </h2>
+								<ul class="nav navbar-right panel_toolbox">
+									<li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+									</li>
+									<li><a class="close-link"><i class="fa fa-close"></i></a>
+									</li>
+								</ul>
+								<div class="clearfix"></div>
+							</div>
+							<div class="x_content">
+								<!-- Actual Content of 3 columns of data table starts here -->
+
+								<div class="row">
+
+									<!-- BOX 1 -->
+									<div class="col-md-4 col-sm-4 col-xs-12">
+										<div class="x_panel tile fixed_height_300 overflow_hidden">
+											<div class="x_title">
+												<h2>Alert Status</h2>
+												<ul class="nav navbar-right panel_toolbox">
+													<li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+													</li>
+													<li><a class="close-link"><i class="fa fa-close"></i></a>
+													</li>
+												</ul>
+												<div class="clearfix"></div>
+											</div>
+											<div class="x_content">
+												<ul class="list-group">
+													<li class="list-group-item" ng-repeat="eachStatus in statusStats">
+														<span class="badge">{{eachStatus.count}}</span> {{eachStatus.status}}
+													</li>
+												</ul>
+											</div>
+										</div>
+									</div>
+
+									<!-- BOX 2 -->
+									<div class="col-md-4 col-sm-4 col-xs-12">
+										<div class="x_panel tile fixed_height_300 overflow_hidden">
+											<div class="x_title">
+												<h2>Crtiticality </h2>
+												<ul class="nav navbar-right panel_toolbox">
+													<li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+													</li>
+													<li><a class="close-link"><i class="fa fa-close"></i></a>
+													</li>
+												</ul>
+												<div class="clearfix"></div>
+											</div>
+											<div class="x_content">
+												<ul class="list-group">
+													<li class="list-group-item" ng-repeat="eachLevel in criticalityStats">
+														<span class="badge">{{eachLevel.count}}</span> {{eachLevel.criticality}}
+													</li>
+												</ul>
+											</div>
+										</div>
+									</div>
+
+
+									<!-- BOX 3 -->
+									<div class="col-md-4 col-sm-4 col-xs-12">
+										<div class="x_panel tile fixed_height_300 overflow_hidden">
+											<div class="x_title">
+												<h2>Alert-Module </h2>
+												<ul class="nav navbar-right panel_toolbox">
+													<li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+													</li>
+													<li><a class="close-link"><i class="fa fa-close"></i></a>
+													</li>
+												</ul>
+												<div class="clearfix"></div>
+											</div>
+											<div class="x_content">
+												<ul class="list-group">
+													<li class="list-group-item" ng-repeat="eachModule in moduleStats">
+														<span class="badge">{{eachModule.count}}</span> {{eachModule.module}}
+													</li>
+												</ul>
+											</div>
+										</div>
+									</div>
+
+								</div>
+								<!-- Actual Content of 3 columns of data table ends here -->
+							</div>
+						</div>
+					</div>
+					<!-- Complete Row for Alert Table data End-->
+
+
+
+
+					<!-- Complete Row for Alert Charts  Start-->
+					<div class="col-xs-12 col-sm-12 col-md-12 ">
+						<div class="x_panel tile fixed_height_300 overflow_hidden">
+							<div class="x_title">
+								<h2>Alert-Charts </h2>
+								<ul class="nav navbar-right panel_toolbox">
+									<li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+									</li>
+									<li><a class="close-link"><i class="fa fa-close"></i></a>
+									</li>
+								</ul>
+								<div class="clearfix"></div>
+							</div>
+
+
+							<div class="x_content">
+								<!-- Actual Content of 3 columns of charts  starts here -->
+
+								<div class="row">
+
+									<!-- BOX 1 -->
+									<div class="col-md-4 col-sm-4 col-xs-12">
+										<div class="x_panel tile fixed_height_320 overflow_hidden">
+											<div class="x_title">
+												<h2> Status</h2>
+												<ul class="nav navbar-right panel_toolbox">
+													<li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+													</li>
+													<li><a class="close-link"><i class="fa fa-close"></i></a>
+													</li>
+												</ul>
+												<div class="clearfix"></div>
+											</div>
+											<div class="x_content">
+												<table class="" style="width:100%">
+													<tr>
+														<th style="width:37%;">
+															<p>Weekly</p>
+														</th>
+														<th>
+														</th>
+													</tr>
+													<tr>
+														<td width="70%">
+															<div ng-controller="alertsController" class="col-xs-50 col-sm-50 col-md-50 col-lg-50">
+
+																<nvd3-pie-chart data="statusChartData" id="statusChartDataId" x="xFunction()" y="yFunction()" donut="true" donutRatio=".5"
+																	noData="No Data For You!" donutLabelsOutside="false" showLegend="true" showLabels="true" width="300" height="300"
+																	labelType="percent">
+																	<svg></svg>
+																</nvd3-pie-chart>
+															</div>
+
+														</td>
+													</tr>
+												</table>
+											</div>
+										</div>
+									</div>
+
+									<!-- BOX 2 -->
+									<div class="col-md-4 col-sm-4 col-xs-12">
+										<div class="x_panel tile fixed_height_320 overflow_hidden">
+											<div class="x_title">
+												<h2> Criticality</p>
+												</h2>
+												<ul class="nav navbar-right panel_toolbox">
+													<li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+													</li>
+													<li><a class="close-link"><i class="fa fa-close"></i></a>
+													</li>
+												</ul>
+												<div class="clearfix"></div>
+											</div>
+											<div class="x_content">
+												<table class="" style="width:100%">
+													<tr>
+														<th style="width:37%;">
+															<p>Weekly </p>
+														</th>
+														<th>
+														</th>
+													</tr>
+													<tr>
+														<td width="70%">
+															<!--
+											col-xs - Extra Small
+											col-sm - Small
+											col-md - Medium
+											col-lg - Large
+											-->
+															<div ng-controller="alertsController" class="col-xs-50 col-sm-50 col-md-50 col-lg-50">
+																<nvd3-pie-chart data="criticalityChartData" id="criticalityChartDataId" x="xFunction()" y="yFunction()" donut="true" donutRatio=".5"
+																	noData="No Data For You!" donutLabelsOutside="false" showLegend="true" showLabels="true" width="300" height="300"
+																	labelType="percent">
+																	<svg></svg>
+																</nvd3-pie-chart>
+															</div>
+
+														</td>
+													</tr>
+												</table>
+											</div>
+										</div>
+									</div>
+
+
+									<!-- BOX 3 -->
+									<div class="col-md-4 col-sm-4 col-xs-12">
+										<div class="x_panel tile fixed_height_320 overflow_hidden">
+											<div class="x_title">
+												<h2> Module </h2>
+												<ul class="nav navbar-right panel_toolbox">
+													<li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+													</li>
+													<li><a class="close-link"><i class="fa fa-close"></i></a>
+													</li>
+												</ul>
+												<div class="clearfix"></div>
+											</div>
+											<div class="x_content">
+												<table class="" style="width:100%">
+													<tr>
+														<th style="width:37%;">
+															<p>Weekly </p>
+														</th>
+														<th>
+														</th>
+													</tr>
+													<tr>
+														<td width="70%">
+															<div ng-controller="alertsController" class="col-md-50 col-sm-50 col-xs-50 col-lg-50">
+																<nvd3-pie-chart data="moduleChartData" id="moduleChartDataId" x="xFunction()" y="yFunction()" donut="true" donutRatio=".5"
+																	noData="No Data For You!" donutLabelsOutside="false" showLegend="true" showLabels="true" width="300" height="300"
+																	labelType="percent">
+																	<svg></svg>
+																</nvd3-pie-chart>
+															</div>
+
+														</td>
+													</tr>
+												</table>
+											</div>
+										</div>
+									</div>
+									<!-- Box 3 ends here -->
+
+
+								</div>
+								<!-- Row div ends here-->
+
+								<!-- ivide aarnu -->
+
+								<!-- Content div ends here-->
+
+								<!-- Actual Content of 3 columns of data table ends here -->
+							</div>
+							<!--  Panel div ends above-->
+						</div>
+						<!-- Complete Row for Alert Charts  Ends above line-->
+
+					</div>
+					<!-- /Complete Row for Alert Charts End-->
+
+					<!-- Complete row of Diskspace  -->
+
+					<div class="col-xs-12 col-sm-12 col-md-12 ">
+						<div class="x_panel tile fixed_height_300 overflow_hidden">
+							<div class="x_title">
+								<h2>Diskspace </h2>
+								<ul class="nav navbar-right panel_toolbox">
+									<li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+									</li>
+									<li><a class="close-link"><i class="fa fa-close"></i></a>
+									</li>
+								</ul>
+								<div class="clearfix"></div>
+							</div>
+
+
+							<div class="x_content">
+
+								<div class="row">
+
+									<!-- BOX 1 -->
+									<div class="col-md-6 col-sm-12 col-xs-12 col-lg-6">
+										<div class="fixed_height_300 x_panel tile  overflow_hidden">
+											<div class="x_title">
+												<h2> Diskspace</h2>
+												<ul class="nav navbar-right panel_toolbox">
+													<li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+													</li>
+													<li><a class="close-link"><i class="fa fa-close"></i></a>
+													</li>
+												</ul>
+												<div class="clearfix"></div>
+											</div>
+											<div class="x_content">
+												<table class="" style="width:100%">
+													<tr>
+														<th style="width:37%;">
+															<p>Overall</p>
+														</th>
+														<th>
+														</th>
+													</tr>
+													<tr>
+														<td width="100%">
+															<div ng-controller="alertsController">
+																<!-- {{diskspaceGraphData}} -->
+																<nvd3-line-chart data="diskspaceGraphData" id="diskspaceGraphDataId" xAxisTickFormat="xAxisTickFormatFunction()" yAxisTickFormat="yAxisTickFormatFunction()"
+																	width="550" height="350" showXAxis="true" showYAxis="true" y="yGraphFunction()" interactive="true" showLegend="true"
+																	isArea="true" tooltips="true" tooltipcontent="toolTipContentFunction()">
+																	<svg></svg>
+																</nvd3-line-chart>
+															</div>
+
+														</td>
+													</tr>
+												</table>
+											</div>
+										</div>
+									</div>
+
+
+									<!-- BOX 2 -->
+									<div class="col-md-6 col-sm-12 col-xs-12 col-lg-6">
+										<div class="fixed_height_300 x_panel tile  overflow_hidden">
+											<div class="x_title">
+												<h2> Node Utilization</h2>
+												<ul class="nav navbar-right panel_toolbox">
+													<li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+													</li>
+													<li><a class="close-link"><i class="fa fa-close"></i></a>
+													</li>
+												</ul>
+												<div class="clearfix"></div>
+											</div>
+											<div class="x_content">
+												<table class="" style="width:100%">
+													<tr>
+														<th style="width:37%;">
+															<p>Overall</p>
+														</th>
+														<th>
+														</th>
+													</tr>
+													<tr>
+														<td width="100%">
+															<div ng-controller="alertsController">
+																<!-- {{Node Util Graph Data}} -->
+																<nvd3-line-chart data="nodeUtilGraphData" id="NodeGraphDataId" xAxisTickFormat="xAxisTickFormatFunction()" yAxisTickFormat="yAxisTickFormatFunction()"
+																	width="550" height="350" showXAxis="true" showYAxis="true" y="yGraphFunction()" interactive="true" showLegend="true"
+																	isArea="true" tooltips="true" tooltipcontent="toolTipContentFunction()">
+																	<svg></svg>
+																</nvd3-line-chart>
+															</div>
+
+														</td>
+													</tr>
+												</table>
+											</div>
+										</div>
+									</div>
+
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<!-- /Complete row of Diskspace -->
+
+				</div>
+				<!-- /page content-->
+
+
+
+				<!-- footer content -->
+				<footer>
+					<div class="pull-right">
+						Dashboard - by Ignite Team
+					</div>
+					<div class="clearfix"></div>
+				</footer>
+				<!-- /footer content -->
+
+
+			</div>
+			<!-- /main container-->
+
+		</div>
+
+
+
+		<!-- jQuery -->
+		<script src="../vendors/jquery/dist/jquery.min.js"></script>
+		<!-- Bootstrap -->
+		<script src="../vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+		<!-- FastClick -->
+		<script src="../vendors/fastclick/lib/fastclick.js"></script>
+		<!-- NProgress -->
+		<script src="../vendors/nprogress/nprogress.js"></script>
+		<!-- Chart.js -->
+		<script src="../vendors/Chart.js/dist/Chart.min.js"></script>
+		<!-- gauge.js -->
+		<script src="../vendors/gauge.js/dist/gauge.min.js"></script>
+		<!-- bootstrap-progressbar -->
+		<script src="../vendors/bootstrap-progressbar/bootstrap-progressbar.min.js"></script>
+		<!-- iCheck -->
+		<script src="../vendors/iCheck/icheck.min.js"></script>
+		<!-- Skycons -->
+		<script src="../vendors/skycons/skycons.js"></script>
+		<!-- Flot -->
+		<script src="../vendors/Flot/jquery.flot.js"></script>
+		<script src="../vendors/Flot/jquery.flot.pie.js"></script>
+		<script src="../vendors/Flot/jquery.flot.time.js"></script>
+		<script src="../vendors/Flot/jquery.flot.stack.js"></script>
+		<script src="../vendors/Flot/jquery.flot.resize.js"></script>
+		<!-- Flot plugins -->
+		<script src="../vendors/flot.orderbars/js/jquery.flot.orderBars.js"></script>
+		<script src="../vendors/flot-spline/js/jquery.flot.spline.min.js"></script>
+		<script src="../vendors/flot.curvedlines/curvedLines.js"></script>
+		<!-- DateJS -->
+		<script src="../vendors/DateJS/build/date.js"></script>
+		<!-- JQVMap -->
+		<script src="../vendors/jqvmap/dist/jquery.vmap.js"></script>
+		<script src="../vendors/jqvmap/dist/maps/jquery.vmap.world.js"></script>
+		<script src="../vendors/jqvmap/examples/js/jquery.vmap.sampledata.js"></script>
+		<!-- bootstrap-daterangepicker -->
+		<script src="../vendors/moment/min/moment.min.js"></script>
+		<script src="../vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
+
+		<!-- Custom Theme Scripts -->
+		<script src="../build/js/custom.min.js"></script>
+
+	</body>
+
+</html>

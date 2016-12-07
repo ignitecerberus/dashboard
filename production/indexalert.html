@@ -1,0 +1,162 @@
+<html>
+
+    <head>
+
+        <title>Alert Dashboard</title>
+        <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+        <meta content="utf-8" http-equiv="encoding">
+<!-- Latest compiled and minified CSS 
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" 
+    integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    -->
+    <link rel="stylesheet" href="css/bootstrap-darkly.min.css"></link>
+    <!-- font-->
+    <link href="https://fonts.googleapis.com/css?family=Abhaya+Libre" rel="stylesheet">
+
+<!--FOR CHARTS  -->
+
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/2.2.0/ui-bootstrap.min.js"></script> 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/2.2.0/ui-bootstrap-tpls.min.js"></script>
+<script src="libs/d3.js"></script>
+<script src="libs/nv.d3.js"></script>
+<script src="libs/angularjs-nvd3-directives.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angularjs-nvd3-directives/0.0.8/angularjs-nvd3-directives.min.js"></script>
+
+<script src="app.js"></script>
+<script src="alerts/alertsController.js"></script>
+<script src="alerts/alertsFactory.js"></script>
+<link rel="stylesheet" href="css/nv.d3.css"/>
+<link rel="stylesheet" href="css/myoverridecss.css"
+    </head>
+
+
+    <body ng-app="alerts" ng-controller="alertsController"  style="font-family: 'Abhaya Libre', serif; font-size:20px">
+
+        <div class="jumbotron" >
+            <div class="row" ng-show="!showCharts">
+
+                <div class="col-sm-3" ng-click="showCharts=!showCharts"> 
+                    <ul class="list-group table-of-contents">
+                        <li class="list-group-item " >7010.US</li>
+                        <li class="list-group-item " >7042.US</li>
+                     </ul>
+                </div>
+
+                <div class="col-sm-3"> STATUS
+                    <ul class="list-group">
+                        <li class="list-group-item" ng-repeat="eachStatus in statusStats">
+                            <span class="badge">{{eachStatus.count}}</span>
+                            {{eachStatus.status}}
+                        </li>
+                     </ul>
+                </div>
+                
+                 <div class="col-sm-3" > MODULE
+                     <ul class="list-group">
+                        <li class="list-group-item" ng-repeat="eachModule in moduleStats">
+                            <span class="badge">{{eachModule.count}}</span>
+                            {{eachModule.module}}
+                        </li>
+                     </ul>
+                </div>
+ 
+                 <div  class="col-sm-3"> LEVEL
+                    <ul class="list-group">
+                        <li class="list-group-item" ng-repeat="eachLevel in criticalityStats">
+                            <span class="badge">{{eachLevel.count}}</span>
+                            {{eachLevel.criticality}}
+                        </li>
+                     </ul>
+                </div>
+
+            </div >
+             <div class="row" ng-show="showCharts"  style="height:300px;">
+                   <div class="col-sm-3" ng-click="showCharts=!showCharts">  
+                    <ul class="list-group table-of-contents">
+                        <li class="list-group-item " >7010.US</li>
+                        <li class="list-group-item " >7042.US</li>
+                     </ul>
+                  </div>
+                  <div ng-controller="alertsController"  class="col-sm-3" >
+                        STATUS
+                    <nvd3-pie-chart
+                            data="statusChartData"
+                            id="statusChartDataId"
+                            x="xFunction()"
+                            y="yFunction()"
+                            donut="false"
+                            donutRatio=".5"
+                            noData="No Data For You!"
+                            showLegend="true"
+                            showLabels="true"
+                            donutLabelsOutside="false"
+                            pieLabelsOutside="false"
+                            labelType="percent"
+                            text="Status">
+                            <svg></svg>
+                    </nvd3-pie-chart>
+                </div>
+                <div ng-controller="alertsController" class="col-sm-3" >
+                    MODULE
+                    <nvd3-pie-chart
+                            data="moduleChartData"
+                            id="moduleChartDataId"
+                            x="xFunction()"
+                            y="yFunction()"
+                            donut="true"
+                            donutRatio=".5"
+                            noData="No Data For You!"
+                            donutLabelsOutside="false"
+                            showLegend="true"
+                            showLabels="true"
+                            labelType="percent">
+                            <svg></svg>
+                    </nvd3-pie-chart>
+                </div>
+                <div ng-controller="alertsController" class="col-sm-3" >
+                    LEVEL
+                    <nvd3-pie-chart
+                            data="criticalityChartData"
+                            id="criticalityChartDataId"
+                            x="xFunction()"
+                            y="yFunction()"
+                            donut="true"
+                            donutRatio=".5"
+                            noData="No Data For You!"
+                            donutLabelsOutside="false"
+                            showLegend="true"
+                            showLabels="true"
+                            width="300"
+                            height="300"
+                            labelType="percent"
+                            >
+                            <svg></svg>
+                    </nvd3-pie-chart>
+                </div>
+             </div>
+        </div>
+
+       
+
+<div ng-controller="alertsController">
+    {{diskspaceGraphData}}
+	<nvd3-line-chart
+    	data="diskspaceGraphData"
+        id="diskspaceGraphDataId"
+        xAxisTickFormat="xAxisTickFormatFunction()"
+        yAxisTickFormat="yAxisTickFormatFunction()"
+        width="550"
+        height="350"
+        showXAxis="true"
+        showYAxis="true"
+        y="yGraphFunction()"
+        useInteractiveGuideLine="true"
+        showLegend="true"
+        interpolate="basis-closed">
+        	<svg></svg>
+    </nvd3-line-chart>
+</div>
+
+    </body>
+</html>
